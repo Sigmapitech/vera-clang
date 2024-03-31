@@ -1,5 +1,4 @@
-{ pkgs, system }:
-p:
+{ pkgs, system, pyenv }:
 let
   supported-platforms = {
     x86_64-linux = "manylinux2010_x86_64";
@@ -8,7 +7,7 @@ let
     aarch64-linux = "manylinux2014_aarch64";
   };
 in
-p.buildPythonPackage rec {
+pyenv.buildPythonPackage rec {
   pname = "libclang";
   version = "16.0.6";
   format = "wheel";

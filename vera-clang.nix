@@ -1,8 +1,4 @@
-{ pkgs, system }:
-let
-  libclang = (import ./libclang.nix { inherit system pkgs; });
-  py = pkgs.python310.withPackages (p: [ (libclang p) ]);
-in
+{ pkgs, system, py }:
 pkgs.banana-vera.overrideAttrs (prev: {
   nativeBuildInputs = prev.nativeBuildInputs ++ [ pkgs.makeWrapper ];
 
