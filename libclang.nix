@@ -9,7 +9,7 @@ let
 in
 pyenv.buildPythonPackage rec {
   pname = "libclang";
-  version = "16.0.6";
+  version = "18.1.1";
   format = "wheel";
 
   src = pkgs.python310Packages.fetchPypi {
@@ -18,10 +18,10 @@ pyenv.buildPythonPackage rec {
     platform = supported-platforms.${system};
 
     hash = {
-      x86_64-linux = "sha256-nc3HMJOXiLi2n/1tXXX+U2bj7gB/Hjapl5nsCwwAFJI=";
-      x86_64-darwin = "sha256-2p5H68PwptkPsWnvJfn7zSm0pO+XqLDj46F4AK8UI/Q=";
-      aarch64-darwin = "sha256-4aWtHoleVEPiBVaMhcBLRgjk6XPa5C9N/Zy0bIHRSGs=";
-      aarch64-linux = "sha256-gTBIISBQBHagJxcfjzyN/CU2tZFxbupx/F2iLK4TExs=";
+      x86_64-linux = "sha256-xTMJHYo7v3RgoAy2wacdqTv/4UjxcsfQOxwx+/iqKgs=";
+      x86_64-darwin = "sha256-bxTD8ZRwTl0JdpEI8DGF/Oesrx0a5Luy8wpywkAMt8U=";
+      aarch64-darwin = "sha256-g85QRdEBtmmsOObajlh2XxLaLTqvs7m5jYiyhqYJZNg=";
+      aarch64-linux = "sha256-VN2pQKSgSRqdFTK/Bx6j7ybm268DtQAO2U3XF06PlZI=";
     }.${system};
   };
 }
