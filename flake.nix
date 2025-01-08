@@ -9,12 +9,7 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
-        libclang = import ./libclang.nix {
-            inherit system pkgs;
-            pyenv = pkgs.python310Packages;
-        };
-
-        py = pkgs.python310.withPackages (p: [ libclang ]);
+        py = pkgs.python310.withPackages (p: [ p.libclang ]);
 
         vera = (import ./vera-clang.nix { inherit system pkgs py; });
       in
@@ -27,7 +22,7 @@
 
         packages = rec {
           default = vera;
-          inherit vera libclang;
+          inherit vera;
         };
       });
 }
