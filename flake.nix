@@ -1,28 +1,21 @@
 {
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+  outputs = { self, nixpkgs }: let
+    supportedSystems = [
+      "aarch64-linux"
+      "aarch64-darwin"
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
+
+    forAllSystems = f: nixpkgs.lib.genAttrs
+      supportedSystems (system: f nixpkgs.legacyPackages.${system});
+  in {
+    packages = forAllSystems (pkgs: {
+      default = self.packages.${pkgs.system}.banana-vera;
+
+      banana-vera = pkgs.callPackage ./vera-clang.nix { };
+    });
   };
-
-  outputs = { nixpkgs, flake-utils, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-
-        py = pkgs.python310.withPackages (p: [ p.libclang ]);
-
-        vera = (import ./vera-clang.nix { inherit system pkgs py; });
-      in
-      {
-        devShell = pkgs.mkShell {
-          buildInputs = [ vera ];
-        };
-
-        formatter = pkgs.nixpkgs-fmt;
-
-        packages = rec {
-          default = vera;
-          inherit vera;
-        };
-      });
 }
